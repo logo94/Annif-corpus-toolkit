@@ -60,6 +60,6 @@ Ogni coppia di file sarà denominata con il codice identificativo riportato all'
 ## Utilizzo ##
 Una volta scaricate le librerie necessarie e scaricato il repository, per avviare lo script sarà sufficiente eseguire il comando:
 ```
-python3 excel2text-key.py
+python3 excel2textkey.py
 ```
 Una volta selezionato il foglio di calcolo da convertire verrà generata una cartella, con lo stesso nome e nella stessa posizione del foglio di calcolo selezionato, contenente le coppie di file `txt-key`.
