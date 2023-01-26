@@ -56,6 +56,6 @@ Each pair of files will be named as the identification code reported inside **Co
 ## Usage ##
 Once downloaded repository and packages, is possible to run the script with the command:
 ```
-python3 <script_name>.py
+python3 excel2textkey.py
 ```
 The script will ask to select the file ro read, then generate, in the same directory and with the same name as the selected spreadsheet, a directory containing the file pairs `.txt-key`.
