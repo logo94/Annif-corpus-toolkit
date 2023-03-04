@@ -1,5 +1,3 @@
-from distutils import filelist
-from distutils.filelist import FileList
 from PyPDF2 import PdfReader
 import tkinter as tk
 from tkinter import filedialog
@@ -27,13 +25,13 @@ for i in fileName:
     txt_file = folder_path + "/" + file_name + ".txt"
     
     reader = PdfReader(i)
-    pp = reader.numPages
+    pp = len(reader.pages)
 
     with open(txt_file, 'w+', encoding='utf-8', newline='') as tf:
 
         for p in range(1, pp):
             page = reader.pages[p]
-            text = page.extractText().replace("-\n", "").replace("a`", "à ").replace("`a", "à ").replace("e`", "è ").replace("`e", "è ").replace("e´", "é ").replace("i`u", "iù ").replace("i`", "ì ").replace("`i", "ì ").replace("o`", "ò ").replace("`o", "ò ").replace("u`", "ù ").replace("`u", "ù ")
+            text = page.extract_text().replace("-\n", "").replace("a`", "à ").replace("`a", "à ").replace("e`", "è ").replace("`e", "è ").replace("e´", "é ").replace("i`u", "iù ").replace("i`", "ì ").replace("`i", "ì ").replace("o`", "ò ").replace("`o", "ò ").replace("u`", "ù ").replace("`u", "ù ")
             tf.write(text)
 
 
