@@ -34,16 +34,10 @@ source pyenv/bin/activate
 ```
 
 ### Librerie ###
-Una volta attivato l'ambiente virtuale è possibile procedere con l'installazione delle librerie necessarie; Excel2text-key utilizza due diverse librerie
+Una volta attivato l'ambiente virtuale è possibile procedere con l'installazione delle librerie necessarie
 
-[xls2textkey.py](https://github.com/logo94/excel2text-key/blob/main/xls2textkey.py) utilizza la libreria [xlrd](https://pypi.org/project/xlrd/), per l'installazione eseguire:
 ```
-pip install xlrd
-```
-
-[xlsx2textkey.py](https://github.com/logo94/excel2text-key/blob/main/xlsx2textkey.py) utilizza la libreria [openpyxl](https://openpyxl.readthedocs.io/en/stable/), per l'installazione eseguire:
-```
-pip install openpyxl
+pip install -r requirements.txt
 ```
 
 ## Preparazione ##
