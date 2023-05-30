@@ -40,7 +40,7 @@ def get_label(i): # Per ogni riga del foglio di calcolo viene ricercato l'URL de
     else: # In caso contrario viene creata la variabile composta secondo la struttura Etichetta <Riferimento geografico>
         label = name_label + " " + "<" + place_label + ">"    
 
-    labelCell = sh.cell(row=i, column=3) # La variabile viene salvata all'interno della terza colonna del foglio di calcolo
+    labelCell = sh.cell(row=i, column=2) # La variabile viene salvata all'interno della terza colonna del foglio di calcolo
     labelCell.value = label
     wb.save(file)
 
