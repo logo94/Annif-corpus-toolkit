@@ -11,7 +11,6 @@ Il foglio di calcolo di partenza deve essere così strutturato:
 
 * **Colonna 1**: URI dell'elemento GeoNames da disambiguare; 
 * **Colonna 2**: Etichetta originale;
-* **Colonna 3**: vuota.
 
 ## Utilizzo ##
 Una volta scaricate le librerie necessarie e scaricato il repository, per avviare lo script sarà sufficiente eseguire il comando:
