@@ -13,7 +13,7 @@ Per riprodurre un vocabolario strutturato secondo la forma supportata da Annif, 
 Il foglio di calcolo di partenza deve essere così strutturato:
 
 * **Colonna 1**: vuota; 
-* **Colonna 2**: termine da ricercare per l'ottenimento del relativo URI 
+* **Colonna 2**: etichetta termine 
 
 ## Utilizzo ##
 Una volta scaricate le librerie necessarie e scaricato il repository, per avviare lo script sarà sufficiente eseguire il comando:
