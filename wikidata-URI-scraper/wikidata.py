@@ -1,55 +1,47 @@
 from operator import contains
-from selenium.webdriver import Firefox
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from selenium.webdriver.common.by import By
 from time import sleep
 import openpyxl
 import tkinter as tk
 from tkinter import filedialog
+import json
+import requests
 
-
-url = "https://www.wikidata.org/wiki/Wikidata:Main_Page" # URL della pagina principale di Wikidata
-
+# Selezione del foglio di calcolo
 root = tk.Tk()
 root.withdraw()
-file = filedialog.askopenfilename() # Selezione del foglio di calcolo
+file = filedialog.askopenfilename()
 
-fire_driver = GeckoDriverManager().install() # Installazione del driver
-driver = Firefox(service=FirefoxService(fire_driver))
-driver.maximize_window()
-driver.get(url) # Connessione del driver alla pagina principale di Wikidata
-
-wb = openpyxl.load_workbook(file) # Apertura del foglio di calcolo per la lettura e la scrittura
+# Apertura del foglio di calcolo per la lettura e la scrittura
+wb = openpyxl.load_workbook(file)
 sh = wb.active
 m_row = sh.max_row
 
-def title(cell):
-    string = sh.cell(row = i, column=2).value # Impostazione del termine presente nel foglio di calcolo come variabile
-    return string
-
-def get_uri(i): # Lo scraper carica la pagina principale di Wikidata e segue gli elementi HTML in modo da ricercare il termine desiderato
-    driver.get(url)
-    txt = title(i)
-    driver.find_element(By.NAME, 'search').send_keys(
-        txt)
-    sleep(1)
-    driver.find_element(By.ID, 'searchButton').click()
-    sleep(1)
-
-    if driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[4]/div[4]/div[2]/ul/li[1]/table/tbody/tr/td[2]/div[1]/a/span/span[1]'):
-        if txt in driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[4]/div[4]/div[2]/ul/li[1]/table/tbody/tr/td[2]/div[1]/a/span/span[1]'):
-            driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[4]/div[4]/div[2]/ul/li[1]/table/tbody/tr/td[2]/div[1]/a/span/span[1]').click()
-            sleep(1)
-            abText = driver.current_url # Se l'elemento HTML esiste, l'URL della pagina viene salvato come variabile
-            abCell = sh.cell(row = i, column=1)
-            abCell.value = "<" + abText + ">" # l'URL viene trascritto all'interno del foglio di calcolo
-            wb.save(file) # alvataggio del file
-    else:
-        continue # In caso di errori il termine viene saltato e si procede con la riga successiva
-
-for i in range(1, m_row + 1): # Per ogni riga del foglio di calcolo viene eseguita l'intera procedura
+# Interrogazione API servizio di riconciliazione Wikidata
+def get_uri(title):
+    query = {
+        "q0": {
+            "query": title,
+            "limit": 5,
+            "type_strict": "should"
+        }
+    }
+    http = requests.Session()
+    payload = {'queries': json.dumps(query)}
+    response = http.post('https://wikidata.reconci.link/it/api', data=payload).json()
     try:
-        get_uri(i)
+        for candidate in response['q0']['result']:
+            if candidate['match'] == True:
+                wikidata_id = "<https://www.wikidata.org/wiki/" + candidate['id'] + ">"
+    except:
+        raise Exception('URI not found')
+    return wikidata_id
+
+# Per ogni riga del foglio di calcolo viene letta l'etichetta e viene assegnato un URI
+for i in range(1, m_row + 1):
+    try:
+        title = sh.cell(row = i, column=2).value
+        wiki_uri = get_uri(i, title)
+        sh.cell(row = i, column=1).value = wiki_uri
+        wb.save(file)
     except:
         continue
