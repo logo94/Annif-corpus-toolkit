@@ -27,6 +27,4 @@ oppure
 ```
 python3 wikidata.py
 ```
-Ogni termine viene ricercato su Wikidata, se il termine ricercato esiste, viene selezionara la prima voce dell'elenco e il relativo URI viene copiato all'interno del foglio di calcolo tra parentesi uncinate `<` `>`. 
-
->wikidata.py non è in grado di gestire automaticamente la selezione del termine perfettamente coincidente, seleziona invece il primo termine proposto da Wikidata, è quindi necessaria una supervisione.
+Ogni termine viene ricercato tramite API del servizio di riconciliazione di Wikidata, se il termine ricercato esiste e coincide, il relativo URI viene copiato all'interno del foglio di calcolo tra parentesi uncinate `<` `>`. 
